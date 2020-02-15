@@ -1,0 +1,83 @@
+<html>
+    <body>
+        <script>
+            function readID(event) {
+
+            event.preventDefault();
+
+            let element = document.querySelector("#id");
+
+            fetch("/id/" + element.value)
+                .then((res) => {
+                return res.json();
+            })
+            .then((processed) => {
+
+                let reporting = document.querySelector("#reportingArea");
+
+                if(processed.error) {
+                    reporting.innerHTML = "Error: " + processed.error;
+                }
+                else {
+                reporting.innerHTML = "Name: " + processed.name +" ID: " + processed.id;
+                }
+
+            });
+        }
+            function readName(event) {
+
+                event.preventDefault();
+
+                let element = document.querySelector("#name");
+
+                fetch("/name/" + element.value)
+                .then((res) => {
+                    return res.json();
+                })
+                .then((processed) => {
+
+                    let reporting = document.querySelector("#reportingArea");
+
+                    if(processed.error) {
+                        reporting.innerHTML = "Error: " + processed.error;
+                    }
+                    else {
+                        reporting.innerHTML = "Name: " + processed.name +" ID: " + processed.id;
+                    }
+
+                });
+            }
+            function createPokemon(event) {
+
+                event.preventDefault();
+
+                let name = document.querySelector("#pokemonName");
+                let score = document.querySelector("#pokemonID");
+
+                fetch("/" + name.value + "/" + id.value, {
+                    "method": "post"
+                }).then((res) => {
+                    return res.json();
+                }).then((processed) => {
+                    console.log(processed);
+                });
+
+
+            }
+        </script>
+        <h2>Pokemon ID</h2>
+        <form onsubmit="readID(event)">
+            <input id="id" type="text">
+            <button>Submit</button>
+        </form>
+        <h2>Pokemon Name</h2>
+        <form onsubmit="readName(event)">
+            <input id="name" type="text">
+            <button>Submit</button>
+        </form>
+
+        <hr>
+        <h2>Pokemon Reporting Area</h2>
+        <div id="reportingArea"></div>
+    </body>
+</html>
